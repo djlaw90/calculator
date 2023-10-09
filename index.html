@@ -10,42 +10,45 @@
         <div class="calculator">
             <div class="display">
                 <div class="display-output-container">
-                    <span class="display-output">1234</span>
+                    <span class="display-output"></span>
                 </div>  
             </div>
             <h1>Dustulator</h1>
             <div class="button-grid">
                 <div class="button-row">
-                    <button class="calc-buttons">7</button>
-                    <button class="calc-buttons">8</button>
-                    <button class="calc-buttons">9</button>
-                    <button class="calc-buttons function"><img src="./icons/multiply-mathematical-sign.png"/ class="func-icon"></button>
+                    <button class="calc-buttons number" value="7">7</button>
+                    <button class="calc-buttons number" value="8">8</button>
+                    <button class="calc-buttons number" value="9">9</button>
+                    <button class="calc-buttons function" value="x"><img src="./icons/multiply-mathematical-sign.png"/ class="func-icon"></button>
                 </div>
                 <div class="button-row">
-                    <button class="calc-buttons">4</button>
-                    <button class="calc-buttons">5</button>
-                    <button class="calc-buttons">6</button>
-                    <button class="calc-buttons function"><img src="./icons/001-divide.png"/ class="func-icon"></button>
+                    <button class="calc-buttons number" value="4">4</button>
+                    <button class="calc-buttons number" value="5">5</button>
+                    <button class="calc-buttons number" value="6">6</button>
+                    <button class="calc-buttons function" value="/"><img src="./icons/001-divide.png"/ class="func-icon"></button>
                 </div>
                 <div class="button-row">
-                    <button class="calc-buttons">1</button>
-                    <button class="calc-buttons">2</button>
-                    <button class="calc-buttons">3</button>
-                    <button class="calc-buttons function"><img src="./icons/003-minus-sign.png"/ class="func-icon"></button>
+                    <button class="calc-buttons number" value="1">1</button>
+                    <button class="calc-buttons number" value="2">2</button>
+                    <button class="calc-buttons number" value="3">3</button>
+                    <button class="calc-buttons function" value="-"><img src="./icons/003-minus-sign.png"/ class="func-icon"></button>
                 </div>
                 <div class="button-row">
-                    <button class="calc-buttons">0</button>
-                    <button class="calc-buttons">.</button>
+                    <button class="calc-buttons number" value="0">0</button>
+                    <button class="calc-buttons" value=".">.</button>
                     <button class="calc-buttons" id="plus-minus"><img src="./icons/002-plus.png"/ class="func-icon plus-minus">/<img src="./icons/003-minus-sign.png"/ class="func-icon plus-minus"></button>
-                    <button class="calc-buttons function"><img src="./icons/002-plus.png"/ class="func-icon"></button>
+                    <button class="calc-buttons function" value="+"><img src="./icons/002-plus.png"/ class="func-icon"></button>
                 </div>
                 <div class="button-row button-row-bottom">
-                    <button class="calc-buttons function" id="equals"><img src="./icons/004-equal.png"/ class="func-icon"></button>
-                    <button class="calc-buttons">Clear</button>
+                    <button class="calc-buttons function" id="equals" value="="><img src="./icons/004-equal.png"/ class="func-icon"></button>
+                    <button class="calc-buttons clear">Clear</button>
                 </div>
             </div>
         </div>
-        <a href="https://www.flaticon.com/free-icons/multiply" title="multiply icons">Multiply icons created by Freepik - Flaticon</a>
+        <footer>
+            <p><b>Copyright 2023 Dusty Lawless</b></p>
+            <a href="https://www.flaticon.com/free-icons/multiply" title="icons">Function icons created by Freepik - Flaticon</a>
+        </footer>
         <script src="app.js"></script>
     </body>
  </html>

@@ -68,7 +68,7 @@ body {
     margin-top: 20px;
     background-color: grey;
     width: 500px;
-    height: 780px;
+    height: 730px;
     border: 1px solid black;
     display: flex;
     align-items: center;
@@ -111,9 +111,9 @@ body {
     font-size: 70px;
     z-index: 1;
     background-color: lightgray;
-    width: 100px;
+    width: 90px;
     gap: 10px;
-    height: 100px;
+    height: 90px;
     border: 1px solid black;
     border-radius: 25px;
 }
@@ -149,5 +149,16 @@ h1 {
     margin-top: 10px;
     font-family: 'Dancing Script', cursive;
     font-size: 40px;
+    text-align: center;
+}
+
+footer {
+    position: fixed;
+    padding: 10px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: lightblue;
+    color: black;
     text-align: center;
 }
