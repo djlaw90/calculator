@@ -1,4 +1,5 @@
-const calcButtons = document.querySelectorAll('.calc-buttons');
+const calcButtons = document.querySelectorAll('.calc-buttons.number');
+const operatorButtons = document.querySelector('.calc-buttons.function');
 
 const display = document.querySelector('.display-output');
 const clearButton = document.querySelector('.clear');
@@ -31,7 +32,9 @@ const getVal = e => {
     displayVal(value);
 }
 
-const displayVal = value => display.innerHTML += value;
+const displayVal = value => {
+    display.innerHTML += value;
+}
 
 
 const clear = () => display.innerHTML = '';

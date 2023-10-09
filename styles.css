@@ -78,11 +78,11 @@ body {
 .display {
     border-radius: 25px;
     border: 1px solid black;
-    font-size: 100px;
+    font-size: 50px;
     text-align: center;
     background-color: lightblue;
     width: 450px;
-    margin-top: 20px;
+    margin-top: 40px;
     height: 100px;
     display: flex;
 }
@@ -90,13 +90,20 @@ body {
 .display-output-container {
     display: flex;
     width: 95%;
-    align-self: center;
-    justify-content: right;
+    flex-direction: column;
+}
+
+.display-output, .display-output-top {
+    font-family: digitalNumbers;
+    align-self: flex-end;
+}
+
+.display-output-top {
+    font-size: 25px;
 }
 
 .display-output {
-    font-family: digitalNumbers;
-    align-self: flex-start;
+    font-size: 70px;
 }
 
 .button-grid {
