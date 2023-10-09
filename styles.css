@@ -130,12 +130,19 @@ body {
     justify-content: space-evenly;
 }
 
-#equals {
-    width: 480px;
+.button-row-bottom .calc-buttons {
+    width: 200px;
 }
 
+#plus-minus img {
+    width: 30px;
+} 
 #plus-minus {
-    font-size: 70px;
+    font-size: 50px !important;
+}
+
+.func-icon {
+    width: 50px;
 }
 
 h1 {
