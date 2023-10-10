@@ -67,8 +67,8 @@ body {
     border-radius: 25px;
     margin-top: 20px;
     background-color: grey;
-    width: 500px;
-    height: 730px;
+    width: 400px;
+    height:600px;
     border: 1px solid black;
     display: flex;
     align-items: center;
@@ -78,19 +78,21 @@ body {
 .display {
     border-radius: 25px;
     border: 1px solid black;
-    font-size: 50px;
+    font-size: 30px;
     text-align: center;
     background-color: lightblue;
-    width: 450px;
+    width: 350px;
     margin-top: 40px;
-    height: 100px;
+    height: 80px;
     display: flex;
+    flex-direction: row-reverse;
 }
 
 .display-output-container {
     display: flex;
-    width: 95%;
+    padding: 5px;
     flex-direction: column;
+    justify-content: center;
 }
 
 .display-output, .display-output-top {
@@ -103,7 +105,7 @@ body {
 }
 
 .display-output {
-    font-size: 70px;
+    font-size: 50px;
 }
 
 .button-grid {
@@ -111,51 +113,55 @@ body {
     padding: 15px;
     flex-direction: column;
     gap: 15px;
-    width: 450px;
+    width: 400px;
 }
 
 .calc-buttons {
-    font-size: 70px;
+    font-size: 40px;
     z-index: 1;
     background-color: lightgray;
-    width: 90px;
-    gap: 10px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
     border: 1px solid black;
     border-radius: 25px;
 }
 
-.function {
+.function-buttons {
     background-color: skyblue;
 }
 
 .button-row {
     display: flex;
-    gap: 15px;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
 
 .button-row-bottom .calc-buttons {
-    width: 200px;
+    width: 190px;
 }
 
 #plus-minus img {
-    width: 30px;
+    width: 20px;
 } 
+
 #plus-minus {
-    font-size: 50px !important;
+    font-size: 20px !important;
 }
 
+.clear {
+    background-color: lightpink;
+}
+
+
 .func-icon {
-    width: 50px;
+    width: 25px;
 }
 
 h1 {
     margin-top: 10px;
     font-family: 'Dancing Script', cursive;
-    font-size: 40px;
+    font-size: 20px;
     text-align: center;
 }
 
