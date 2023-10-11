@@ -10,7 +10,12 @@ const equalButton = document.querySelector('.equal');
 const add = (a,b) =>  a + b;
 const subtract = (a,b) =>  a - b;
 const multiply = (a,b) => a * b;
-const divide = (a,b) => a / b;
+const divide = (a,b) => {
+    if(b === 0) {
+        alert('Can\'t let you do that, Star Fox!');
+    }
+    return a / b;
+};
 
 let operand1 = 0;
 let operand2 = 0;
@@ -25,11 +30,17 @@ const operate = (number1, number2) => {
         result = subtract(number1, number2);
     } else if (operatorSign === "×") {
         result = multiply(number1, number2);
-    } else {
+    } else if (operatorSign === "÷") {
         result = divide(number1, number2);
     }
+    
+    //Handles division by 0
+    result === Infinity ? 
+    mainDisplay.textContent = 'UNDEFINED' : 
+    mainDisplay.textContent = parseFloat(result).toFixed(12);
+
     displayTop.textContent = `${operand1} ${operatorSign} ${operand2} =`
-    mainDisplay.textContent = result;
+    
 }
 
 const appendNum = numClicked => {
@@ -57,18 +68,21 @@ const setOperation = currentOperation => {
     } else if(operation === "divide") {
         operatorSign = "÷";
     }
+
     operand1 = +mainDisplay.textContent;
     displayTop.textContent = `${operand1} ${operatorSign}`;
     shouldResetDisplay = true;
 }
 
 const evaluate = () => {
+    if(!operand1) return;
     operand2 = +mainDisplay.textContent;
+    //Make sure truthy values are present first
     operate(operand1, operand2);
 }
 
 const clear = () => {
-    mainDisplay.innerHTML = '';
+    mainDisplay.innerHTML = '0';
     displayTop.innerHTML = '';
     number1 = 0;
     number2 = 0;
@@ -76,8 +90,9 @@ const clear = () => {
     operatorSign = '';
 } 
 
-clearButton.addEventListener('click', clear);
+//Event Listeners
 
+clearButton.addEventListener('click', clear);
 equalButton.addEventListener('click', evaluate);
 
 calcButtons.forEach(button => {
@@ -89,5 +104,3 @@ calcButtons.forEach(button => {
         }
     });
   }); 
-
-  //init();
