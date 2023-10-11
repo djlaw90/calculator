@@ -4,6 +4,7 @@ const mainDisplay = document.querySelector('.display-output');
 const displayTop = document.querySelector('.display-output-top');
 
 const clearButton = document.querySelector('.clear');
+const deleteButton = document.querySelector('.clear-entry');
 const equalButton = document.querySelector('.equal');
 
 //Operator functions
@@ -44,17 +45,15 @@ const operate = (number1, number2) => {
     mainDisplay.textContent = 'UNDEFINED' : 
     mainDisplay.textContent = result;
 
-    
-
-
     displayTop.textContent = `${operand1} ${operatorSign} ${operand2} =`
-    
 }
 
 const appendNum = numClicked => {
     if(mainDisplay.textContent === '0' || shouldResetDisplay) {
         resetDisplay();
-    }
+    } else if(mainDisplay.textContent.toString().length > 13) {
+        return;
+    } 
     mainDisplay.textContent += numClicked.textContent;
 }
 
@@ -89,6 +88,10 @@ const evaluate = () => {
     operate(operand1, operand2);
 }
 
+const deleteLastNum = () => {
+    console.log('button pressed');
+}
+
 const clear = () => {
     mainDisplay.innerHTML = '0';
     displayTop.innerHTML = '';
@@ -101,6 +104,7 @@ const clear = () => {
 //Event Listeners
 
 clearButton.addEventListener('click', clear);
+deleteButton.addEventListener('click', deleteLastNum);
 equalButton.addEventListener('click', evaluate);
 
 calcButtons.forEach(button => {
