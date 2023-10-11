@@ -33,11 +33,19 @@ const operate = (number1, number2) => {
     } else if (operatorSign === "÷") {
         result = divide(number1, number2);
     }
-    
+
+    //Handles irrational/repeating nums
+    result.toString().length > 12 ?
+    result = parseFloat(result).toFixed(12) :
+    mainDisplay.textContent = result;
+
     //Handles division by 0
     result === Infinity ? 
     mainDisplay.textContent = 'UNDEFINED' : 
-    mainDisplay.textContent = parseFloat(result).toFixed(12);
+    mainDisplay.textContent = result;
+
+    
+
 
     displayTop.textContent = `${operand1} ${operatorSign} ${operand2} =`
     
