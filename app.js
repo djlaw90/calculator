@@ -6,6 +6,7 @@ const displayTop = document.querySelector('.display-output-top');
 const clearButton = document.querySelector('.clear');
 const deleteButton = document.querySelector('.clear-entry');
 const equalButton = document.querySelector('.equal');
+const decimalButton = document.querySelector('.decimal');
 
 //Operator functions
 const add = (a,b) =>  a + b;
@@ -22,6 +23,7 @@ let operand1 = 0;
 let operand2 = 0;
 let operatorSign = null;
 let shouldResetDisplay = false;
+let calculationComplete = false;
 
 const operate = (number1, number2) => {
     let result;
@@ -35,17 +37,26 @@ const operate = (number1, number2) => {
         result = divide(number1, number2);
     }
 
-    //Handles irrational/repeating nums
-    result.toString().length > 12 ?
-    result = parseFloat(result).toFixed(12) :
-    mainDisplay.textContent = result;
+    
+    try {
+        //Handles irrational/repeating nums
+        result.toString().length > 12 ?
+        result = parseFloat(result).toFixed(12) :
+        mainDisplay.textContent = result;
 
-    //Handles division by 0
-    result === Infinity ? 
-    mainDisplay.textContent = 'UNDEFINED' : 
-    mainDisplay.textContent = result;
+        //Handles division by 0
+        result === Infinity ? 
+        mainDisplay.textContent = 'UNDEFINED' : 
+        mainDisplay.textContent = result;
 
-    displayTop.textContent = `${operand1} ${operatorSign} ${operand2} =`
+        displayTop.textContent = `${operand1} ${operatorSign} ${operand2} =`
+        calculationComplete = true;
+    }
+
+    catch(err) {
+        displayTop.textContent = '';
+        alert("Nothing to calculate.");
+    }
 }
 
 const appendNum = numClicked => {
@@ -66,6 +77,7 @@ const resetDisplay = () => {
 
 const setOperation = currentOperation => {
     newInput = true;
+    calculationComplete = false;
     let operation = currentOperation.getAttribute('value');
     if(operation === "add") {
         operatorSign = "+";
@@ -83,24 +95,34 @@ const setOperation = currentOperation => {
 }
 
 const evaluate = () => {
-    if(!operand1) return;
     operand2 = +mainDisplay.textContent;
-    //Make sure truthy values are present first
     operate(operand1, operand2);
 }
 
-const deleteLastNum = () => mainDisplay.textContent = 
-[...mainDisplay.textContent]
-.slice(0,-1)
-.join(''); 
+const deleteLastNum = () => {
+    //prevent last num delete if already a calculation submitted
+    if (calculationComplete) return;
+    mainDisplay.textContent = [...mainDisplay.textContent]
+    .slice(0,-1)
+    .join(''); 
+}
+
+const addDecimal = () => {
+    let tempArr = [...mainDisplay.textContent];
+    if(tempArr.includes('.')) return;
+    tempArr.push('.');
+    mainDisplay.textContent = tempArr.join('');
+}
 
 const clear = () => {
     mainDisplay.innerHTML = '0';
     displayTop.innerHTML = '';
-    number1 = 0;
-    number2 = 0;
+    operand1 = 0;
+    operand2 = 0;
     operation = '';
     operatorSign = '';
+    calculationComplete = false;
+    shouldResetDisplay = false;
 } 
 
 //Event Listeners
@@ -108,6 +130,7 @@ const clear = () => {
 clearButton.addEventListener('click', clear);
 deleteButton.addEventListener('click', deleteLastNum);
 equalButton.addEventListener('click', evaluate);
+decimalButton.addEventListener('click', addDecimal);
 
 calcButtons.forEach(button => {
     button.addEventListener("click", (e) => {
