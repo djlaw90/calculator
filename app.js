@@ -52,6 +52,7 @@ const appendNum = numClicked => {
     if(mainDisplay.textContent === '0' || shouldResetDisplay) {
         resetDisplay();
     } else if(mainDisplay.textContent.toString().length > 13) {
+        //prevents numbers from breaking display
         return;
     } 
     mainDisplay.textContent += numClicked.textContent;
@@ -88,9 +89,10 @@ const evaluate = () => {
     operate(operand1, operand2);
 }
 
-const deleteLastNum = () => {
-    console.log('button pressed');
-}
+const deleteLastNum = () => mainDisplay.textContent = 
+[...mainDisplay.textContent]
+.slice(0,-1)
+.join(''); 
 
 const clear = () => {
     mainDisplay.innerHTML = '0';
