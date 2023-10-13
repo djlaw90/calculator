@@ -27,7 +27,6 @@ let calculationComplete = false;
 let additiveInv = false;
 
 const operate = (number1, number2) => {
-    console.log(number1, number2);
     let result;
     if(operatorSign === "+") {
         result = add(number1, number2);
@@ -43,7 +42,7 @@ const operate = (number1, number2) => {
     try {
         //Handles large/irrational/repeating nums
         if(result.toString().length > 14 && result < 1) {
-            result = result.toFixed(12);
+            result = result.toFixed(10);
         }
         if(result.toString().length > 14 && result > 10000000000) {
             displayTop.style.fontSize = '20px';
@@ -60,7 +59,6 @@ const operate = (number1, number2) => {
     }
 
     catch(err) {
-        console.log(err);
         displayTop.textContent = '';
         alert("Nothing to evaluate. Please select an operator.");
     }
@@ -175,25 +173,20 @@ calcButtons.forEach(button => {
 //Keyboard support
 document.addEventListener('keydown', (event) => {
     const isNumber = isFinite(event.key);
-
     if(event.key === "Backspace") {
         deleteLastNum();
     }
-
     if(calculationComplete) {
         clear();
     }
-
     if(!operatorSign) {
         if(event.key === "-") {
             getSetAdditiveInverse();
         }
     }
-
     if(event.key === "Enter" && !calculationComplete) {
         evaluate();
     }
-
     if(event.key === "+") {
         setOperation("add");
     } else if(event.key === "-") {
@@ -205,20 +198,17 @@ document.addEventListener('keydown', (event) => {
     }
 
     if(isNumber || event.key === "."){
-
         if(event.key === ".") {
             let tempArr = [...mainDisplay.textContent];
             if(tempArr.includes('.')) return;
             mainDisplay.textContent = tempArr.join('');
         }
-
         if(mainDisplay.textContent === '0' || shouldResetDisplay) {
             resetDisplay();
         } else if(mainDisplay.textContent.toString().length > 13) {
             //prevents numbers from breaking display
             return;
         } 
-
         mainDisplay.textContent += event.key;
     } 
 }, false);
