@@ -6,6 +6,7 @@ const clearButton = document.querySelector('.clear');
 const deleteButton = document.querySelector('.clear-entry');
 const equalButton = document.querySelector('.equal');
 const decimalButton = document.querySelector('.decimal');
+const plusMinusButton = document.querySelector('.plus-minus');
 
 //Operator functions
 const add = (a,b) =>  a + b;
@@ -38,10 +39,13 @@ const operate = (number1, number2) => {
 
     
     try {
-        //Handles irrational/repeating nums
-        result.toString().length > 12 ?
-        result = parseFloat(result).toFixed(12) :
-        mainDisplay.textContent = result;
+        //Handles large/irrational/repeating nums
+        if(result < 1) {
+            result = result.toFixed(13);
+        }
+        if(result.toString().length > 14) {
+            result = result.toExponential(2);
+        }
 
         //Handles division by 0
         result === Infinity ? 
@@ -79,15 +83,16 @@ const setOperation = currentOperation => {
     let operation = currentOperation;
     newInput = true;
     calculationComplete = false;
+    //Accomodates keyboard input
     if(typeof currentOperation !== "string"){
         operation = currentOperation.getAttribute('value');
     }
+
     if(operation === "add") {
         operatorSign = "+";
     } else if(operation === "subtract") {
         operatorSign = "-";
     } else if(operation === "multiply") {
-        console.log(operation)
         operatorSign = "×";
     } else if(operation === "divide") {
         operatorSign = "÷";
@@ -118,6 +123,16 @@ const addDecimal = () => {
     mainDisplay.textContent = tempArr.join('');
 }
 
+const getSetAdditiveInverse = () => {
+    let tempArr = [...mainDisplay.textContent];
+    if(tempArr.includes('-')) {
+        tempArr.shift();
+    } else {
+        tempArr.unshift("-");
+    }
+    mainDisplay.textContent = tempArr.join('');
+}
+
 const clear = () => {
     mainDisplay.innerHTML = '0';
     displayTop.innerHTML = '';
@@ -135,13 +150,16 @@ clearButton.addEventListener('click', clear);
 deleteButton.addEventListener('click', deleteLastNum);
 equalButton.addEventListener('click', evaluate);
 decimalButton.addEventListener('click', addDecimal);
+plusMinusButton.addEventListener('click', getSetAdditiveInverse);
 
 calcButtons.forEach(button => {
+    if(calculationComplete) {
+        clear();
+    }
     button.addEventListener("click", (e) => {
         if(e.target.classList.contains('number')) {
             appendNum(e.target);
         } else if(e.target.classList.contains('function')) {
-            console.log("e.target:", e.target)
             setOperation(e.target);
         }
     });
@@ -150,7 +168,18 @@ calcButtons.forEach(button => {
 //Keyboard support
 document.addEventListener('keydown', (event) => {
     const isNumber = isFinite(event.key);
-    if(event.key === "Enter") {
+
+    if(calculationComplete) {
+        clear();
+    }
+
+    if(!operatorSign) {
+        if(event.key === "-") {
+            getSetAdditiveInverse();
+        }
+    }
+
+    if(event.key === "Enter" && !calculationComplete) {
         evaluate();
     }
 
@@ -165,7 +194,7 @@ document.addEventListener('keydown', (event) => {
     }
 
     if(isNumber || event.key === "."){
-        
+
         if(event.key === ".") {
             let tempArr = [...mainDisplay.textContent];
             if(tempArr.includes('.')) return;
