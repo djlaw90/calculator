@@ -179,11 +179,6 @@ document.addEventListener('keydown', (event) => {
     if(calculationComplete) {
         clear();
     }
-    if(!operatorSign) {
-        if(event.key === "-") {
-            getSetAdditiveInverse();
-        }
-    }
     if(event.key === "Enter" && !calculationComplete) {
         evaluate();
     }
