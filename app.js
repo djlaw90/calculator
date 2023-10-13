@@ -24,8 +24,10 @@ let operand2 = 0;
 let operatorSign = null;
 let shouldResetDisplay = false;
 let calculationComplete = false;
+let additiveInv = false;
 
 const operate = (number1, number2) => {
+    console.log(number1, number2);
     let result;
     if(operatorSign === "+") {
         result = add(number1, number2);
@@ -40,11 +42,12 @@ const operate = (number1, number2) => {
     
     try {
         //Handles large/irrational/repeating nums
-        if(result < 1) {
-            result = result.toFixed(13);
+        if(result.toString().length > 14 && result < 1) {
+            result = result.toFixed(12);
         }
-        if(result.toString().length > 14) {
-            result = result.toExponential(2);
+        if(result.toString().length > 14 && result > 10000000000) {
+            displayTop.style.fontSize = '20px';
+            result = result.toPrecision(3);
         }
 
         //Handles division by 0
@@ -57,6 +60,7 @@ const operate = (number1, number2) => {
     }
 
     catch(err) {
+        console.log(err);
         displayTop.textContent = '';
         alert("Nothing to evaluate. Please select an operator.");
     }
@@ -124,6 +128,8 @@ const addDecimal = () => {
 }
 
 const getSetAdditiveInverse = () => {
+    //prevent changing anything later on
+    if(additiveInv || mainDisplay.textContent === "0") return;
     let tempArr = [...mainDisplay.textContent];
     if(tempArr.includes('-')) {
         tempArr.shift();
@@ -142,6 +148,7 @@ const clear = () => {
     operatorSign = '';
     calculationComplete = false;
     shouldResetDisplay = false;
+    additiveInv = false;
 } 
 
 //Event Listeners
@@ -168,6 +175,10 @@ calcButtons.forEach(button => {
 //Keyboard support
 document.addEventListener('keydown', (event) => {
     const isNumber = isFinite(event.key);
+
+    if(event.key === "Backspace") {
+        deleteLastNum();
+    }
 
     if(calculationComplete) {
         clear();
