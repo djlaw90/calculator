@@ -1,8 +1,7 @@
-const calcButtons = document.querySelectorAll('.calc-buttons');
-
 const mainDisplay = document.querySelector('.display-output');
 const displayTop = document.querySelector('.display-output-top');
 
+const calcButtons = document.querySelectorAll('.calc-buttons');
 const clearButton = document.querySelector('.clear');
 const deleteButton = document.querySelector('.clear-entry');
 const equalButton = document.querySelector('.equal');
@@ -55,9 +54,10 @@ const operate = (number1, number2) => {
 
     catch(err) {
         displayTop.textContent = '';
-        alert("Nothing to calculate.");
+        alert("Nothing to evaluate. Please select an operator.");
     }
 }
+
 
 const appendNum = numClicked => {
     if(mainDisplay.textContent === '0' || shouldResetDisplay) {
@@ -76,14 +76,18 @@ const resetDisplay = () => {
 }
 
 const setOperation = currentOperation => {
+    let operation = currentOperation;
     newInput = true;
     calculationComplete = false;
-    let operation = currentOperation.getAttribute('value');
+    if(typeof currentOperation !== "string"){
+        operation = currentOperation.getAttribute('value');
+    }
     if(operation === "add") {
         operatorSign = "+";
     } else if(operation === "subtract") {
         operatorSign = "-";
     } else if(operation === "multiply") {
+        console.log(operation)
         operatorSign = "×";
     } else if(operation === "divide") {
         operatorSign = "÷";
@@ -137,7 +141,44 @@ calcButtons.forEach(button => {
         if(e.target.classList.contains('number')) {
             appendNum(e.target);
         } else if(e.target.classList.contains('function')) {
+            console.log("e.target:", e.target)
             setOperation(e.target);
         }
     });
   }); 
+
+//Keyboard support
+document.addEventListener('keydown', (event) => {
+    const isNumber = isFinite(event.key);
+    if(event.key === "Enter") {
+        evaluate();
+    }
+
+    if(event.key === "+") {
+        setOperation("add");
+    } else if(event.key === "-") {
+        setOperation("subtract")
+    } else if(event.key === "/") {
+        setOperation("divide");
+    } else if(event.key === "*" || event.key === "x") {
+        setOperation("multiply");
+    }
+
+    if(isNumber || event.key === "."){
+        
+        if(event.key === ".") {
+            let tempArr = [...mainDisplay.textContent];
+            if(tempArr.includes('.')) return;
+            mainDisplay.textContent = tempArr.join('');
+        }
+
+        if(mainDisplay.textContent === '0' || shouldResetDisplay) {
+            resetDisplay();
+        } else if(mainDisplay.textContent.toString().length > 13) {
+            //prevents numbers from breaking display
+            return;
+        } 
+
+        mainDisplay.textContent += event.key;
+    } 
+}, false);
